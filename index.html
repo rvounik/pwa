@@ -1,0 +1,57 @@
+<!DOCTYPE html><html lang="en">
+<head>
+    <title>pwa</title>
+
+    <script src="https://use.typekit.net/was4bcb.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
+
+    <link rel="stylesheet" href="web/css/screen.css">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="application-name" content="rvo-pwa">
+    <meta name="theme-color" content="#D6D3CF">
+
+    <!-- Add manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <!-- Add to home screen for Safari on iOS -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="PWA">
+    <link rel="apple-touch-icon" href="web/assets/image/launcher-icon-3x.png">
+    <!-- Tile Icon for Windows -->
+    <meta name="msapplication-TileImage" content="web/assets/image/launcher-icon-3x.png">
+    <meta name="msapplication-TileColor" content="#ff0000">
+
+    <script src="web/js/common.js"></script>
+    <script src="web/js/vendor/polyfill.js" type="text/javascript"></script>
+</head>
+<body>
+
+<header>
+    <img src="web/assets/image/logo-ltp-rgb.svg" alt="LTP"/>
+</header>
+
+<main>
+    <h1>PWA proof-of-concept for LTP Questionnaires</h1>
+    <section>
+        <h4>Offline caching</h4>
+        <p>
+            The link below this text leads to a page that was cached by the service worker. Disable your connection (or stop your docker container if working locally) then click. If it works, you are browsing in offline mode, hurray!
+            <br /><br /><a href="cached.html">link to some other page (cached.html)</a>
+            <br /><br />If you dont believe me, click the following link, which was not cached.
+            <br /><br /><a href="notcached.html">link to some other page (notcached.html)</a>
+        </p>
+        <h2>Questionnaire</h2>
+        <p>
+            So, all really interesting. But you are here for the questionnaire, right? Fear not, you can start the questionnaire by following this link:
+            <br /><br /><a href="questionnaire.html"><button role="link" class="button-start-questionnaire">start questionnaire</button></a>
+        </p>
+    </section>
+</main>
+
+</body>
+</html>

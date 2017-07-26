@@ -1,0 +1,79 @@
+
+/* global variables */
+html {
+    --ltp-orange: #ef7c00;
+}
+
+/* todo: find way to have fonts offline */
+
+html {
+    font-family: "Museo Sans";
+    color: #333;
+    font-size: 16px;
+    width: 100%;
+}
+body {
+    background: #D6D3CF;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Museo";
+    color: var(--ltp-orange);
+    padding: 0;
+    margin: .75rem 0;
+}
+h4, h5, h6 {
+    color: #333;
+    margin: .5rem 0;
+}
+header {
+    background: #fff;
+    height: 3rem;
+}
+header img {
+    max-width: 50px;
+    margin-left: .75rem;
+}
+main {
+    padding: .5rem;
+}
+p {
+    padding: 0;
+    line-height: 1.5rem;
+    margin: 0 0 2rem 0;
+}
+button[role=link] {
+    border: 0;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 1rem;
+    color: #fff;
+    background: var(--ltp-orange);
+}
+.alert-offline {
+    display: none;
+}
+.offline .alert-offline {
+    display: block;
+}
+.alert {
+    background: #ff0000;
+    height: 3rem;
+    line-height: 3rem;
+
+    color: #fff;
+    padding: .5rem;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+.alert-offline p {
+    font-family: arial;
+    font-size: .75rem;
+    line-height: 1.25rem;
+    vertical-align: middle;
+}
