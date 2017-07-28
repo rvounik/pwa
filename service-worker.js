@@ -1,12 +1,10 @@
 // note: leave this file in root of project or scope will be limited
-
-// enable caching when deployed (not during development since you wont see your changes after initial load)
 var doCache = false;
 
 // Name our cache
 var CACHE_NAME = 'rvo-pwa';
 
-// Delete old caches that are not our current one!
+// delete old cache
 self.addEventListener("activate", event => {
     const cacheWhitelist = [CACHE_NAME];
     event.waitUntil(
@@ -24,13 +22,11 @@ self.addEventListener("activate", event => {
     );
 });
 
-// todo: combine the JS files into one
-// note that the first "/" in the list ensures the project's default document (ie: rvo-pwa.nl with nothing after) is cached, too
-/* install is triggered on first launch */
+// install is triggered on first launch
 self.addEventListener('install', function (event) {
     // installing service worker
     if (doCache) {
-        /* if caching is enabled, open cache and cache the specified files for offline usage */
+        // if caching is enabled, cache the specified files for offline usage (the first "/" indicates www.rvo-pwa.nl/)
         event.waitUntil(
             caches.open(CACHE_NAME)
                 .then(function (cache) {
@@ -39,9 +35,11 @@ self.addEventListener('install', function (event) {
                         "index.html",
                         "cached.html",
                         "questionnaire.html",
+                        "web/assets/image/logo-ltp-rgb.svg",
                         "web/css/screen.css",
-                        "web/js/common.js",
-                        "web/js/vendor/polyfill.js"
+                        "web/js/vendor/polyfill.js",
+                        "web/js/questionnaire.js",
+                        "web/js/common.js"
                     ];
                     cache.addAll(urlsToCache);
                     console.log('ServiceWorker cached the following files: ' + urlsToCache);
@@ -52,7 +50,7 @@ self.addEventListener('install', function (event) {
     }
 });
 
-// When the webpage goes to fetch files, we intercept that request and serve up the matching cached files if we have them (regardless of online/offline state)
+// intercept any request and serve cached version of the file if available (regardless of online/offline state)
 self.addEventListener('fetch', function (event) {
     if (doCache) {
         event.respondWith(

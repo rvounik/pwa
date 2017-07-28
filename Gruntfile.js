@@ -2,15 +2,17 @@ module.exports = function(grunt) {
     // project configuration
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        babel: {
-            options: {
-                sourceMap: true,
-                presets: ['babel-preset-es2015']
-            },
-            dist: {
-                files: {
-                    'js/build/questionnaire.js': 'js/src/questionnaire.js'
-}
+        browserify: {
+            "build": {
+                "options": {
+                    "browserifyOptions": { debug: true },
+                    "transform": [["babelify", {"sourceMap": true, "presets": ["es2015", "react"]}]],
+                    "watch": false,
+                    "keepAlive": false
+                },
+                "files": {
+                    "js/build/questionnaire.js": "js/src/questionnaire.js"
+                }
             }
         },
         copy: {
@@ -64,7 +66,7 @@ module.exports = function(grunt) {
                 ],
                 "tasks": [
                     'clean:build',
-                    "babel:dist",
+                    "browserify",
                     'clean:web',
                     "copy:js",
                     "copy:vendor",
@@ -81,14 +83,14 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-copy');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-babel');
+    grunt.loadNpmTasks('grunt-browserify');
 
     // register tasks
     grunt.registerTask(
         'default',
         [
             'clean:build',
-            'babel:dist',
+            'browserify',
             'clean:web',
             'copy:js',
             'copy:vendor',
