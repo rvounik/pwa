@@ -28,7 +28,7 @@ self.addEventListener("activate", event => {
 // note that the first "/" in the list ensures the project's default document (ie: rvo-pwa.nl with nothing after) is cached, too
 /* install is triggered on first launch */
 self.addEventListener('install', function (event) {
-    console.log('installing service worker');
+    // installing service worker
     if (doCache) {
         /* if caching is enabled, open cache and cache the specified files for offline usage */
         event.waitUntil(
@@ -44,9 +44,11 @@ self.addEventListener('install', function (event) {
                         "web/js/vendor/polyfill.js"
                     ];
                     cache.addAll(urlsToCache);
-                    console.log('caching complete. cached files: ' + urlsToCache);
+                    console.log('ServiceWorker cached the following files: ' + urlsToCache);
                 })
         );
+    } else {
+        console.log('ServiceWorker caching is disabled');
     }
 });
 

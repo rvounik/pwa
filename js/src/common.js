@@ -14,8 +14,8 @@ if ('serviceWorker' in navigator) {
             //     }
             // }
 
-            console.log('ServiceWorker registration successful with scope: ', registration.scope);
-            console.log('note: if storage was NOT cleared (or caching=false), service worker install event wont be triggered and you wont see information on cached files below this line:');
+            // console.log('ServiceWorker registration successful with scope: ', registration.scope);
+            // note: if storage was NOT cleared (or caching=false), service worker install event wont be triggered
         }, function (err) {
             // registration failed
             console.log('ServiceWorker registration failed: ', err);
@@ -23,12 +23,12 @@ if ('serviceWorker' in navigator) {
             console.log(err);
         });
 
-        console.log('checking navigator status',navigator);
+        //console.log('checking navigator status',navigator);
         if (!navigator.onLine) {
             document.querySelector('body').classList.add('offline');
         }
     });
 } else {
     // todo: ensure this only fires when app is really offline
-    alert('service worker not supported on this device, cant work offline');
+    alert('serviceWorker not supported on this device, cant work offline');
 }

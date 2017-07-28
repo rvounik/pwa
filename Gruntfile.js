@@ -2,18 +2,15 @@ module.exports = function(grunt) {
     // project configuration
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        browserify: {
-            "build": {
-                "options": {
-                    "transform": [
-                        "babelify"
-                    ],
-                    "watch": false,
-                    "keepAlive": false
-                },
-                "files": {
-                    "js/build/common.js": "js/src/common.js"
-                }
+        babel: {
+            options: {
+                sourceMap: true,
+                presets: ['babel-preset-es2015']
+            },
+            dist: {
+                files: {
+                    'js/build/questionnaire.js': 'js/src/questionnaire.js'
+}
             }
         },
         copy: {
@@ -22,7 +19,8 @@ module.exports = function(grunt) {
             },
             js: {
                 files: {
-                    'web/js/common.js': ['js/build/common.js']
+                    'web/js/common.js': ['js/src/common.js'],
+                    'web/js/questionnaire.js': ['js/build/questionnaire.js']
                 }
             },
             vendor: {
@@ -66,7 +64,7 @@ module.exports = function(grunt) {
                 ],
                 "tasks": [
                     'clean:build',
-                    "browserify:build",
+                    "babel:dist",
                     'clean:web',
                     "copy:js",
                     "copy:vendor",
@@ -79,17 +77,18 @@ module.exports = function(grunt) {
 
     // load the plugins
 
-    grunt.loadNpmTasks('grunt-browserify');
+    //grunt.loadNpmTasks('grunt-browserify');
     grunt.loadNpmTasks('grunt-copy');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-babel');
 
     // register tasks
     grunt.registerTask(
         'default',
         [
             'clean:build',
-            'browserify:build',
+            'babel:dist',
             'clean:web',
             'copy:js',
             'copy:vendor',
