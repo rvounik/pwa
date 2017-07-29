@@ -2,12 +2,13 @@
     font-family: $main-font-sans-serif;
 }
 html {
-    color: #333;
+    color: $ltp-black;
     font-size: 16px;
+    line-height: 1.5rem;
     width: 100%;
 }
 body {
-    background: #D6D3CF;
+    background: $ltp-beige;
     padding: 0;
     margin: 0;
     width: 100%;
@@ -23,7 +24,7 @@ h4, h5, h6 {
     margin: .5rem 0;
 }
 header {
-    background: #fff;
+    background: $ltp-white;
     height: 3rem;
     img {
         max-width: 50px;
@@ -34,10 +35,8 @@ main {
     padding: .5rem;
 }
 ul, li {
-    line-height: 1.5rem;
 }
 p {
     padding: 0;
-    line-height: 1.5rem;
     margin: 0 0 2rem 0;
 }
