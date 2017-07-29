@@ -1,0 +1,27 @@
+.alert {
+    background: #ff0000;
+    color: #fff;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    p {
+        padding: .5rem;
+        font-size: .75rem;
+        line-height: 1.25rem;
+    }
+}
+.alert.floating {
+    position: relative;
+    bottom: unset;
+    border-radius: 5px;
+}
+
+/* the offline alert has some special logic to make it appear when network loss was detected */
+
+.alert-offline {
+    display: none;
+}
+.offline .alert-offline {
+    display: block;
+}

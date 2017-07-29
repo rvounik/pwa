@@ -33,11 +33,6 @@ module.exports = function(grunt) {
             assets: {
                 expand: true, cwd: 'assets/image', src: ['*'], dest: 'web/assets/image/'
             },
-            css: {
-                files: {
-                    'web/css/screen.css': ['css/src/screen.css']
-                }
-            }
         },
         clean: {
             "build": [
@@ -50,6 +45,30 @@ module.exports = function(grunt) {
                 "web/assets/image/*"
             ]
         },
+        autoprefixer: {
+            "build": {
+                "files": {
+                    "web/css/screen.css": "web/css/screen.css"
+                }
+            }
+        },
+        compass: {
+            "build": {
+                "options": {
+                    "importPath": [
+                        "node_modules"
+                    ],
+                    "sassDir": [
+                        "css/src"
+                    ],
+                    "cssDir": "web/css/",
+                    "environment": "production",
+                    "noLineComments": false,
+                    "outputStyle": "compressed",
+                    "specify": "css/src/screen.scss"
+                }
+            }
+        },
         watch: {
             "project": {
                 "files": [
@@ -60,10 +79,11 @@ module.exports = function(grunt) {
                     'clean:build',
                     "browserify",
                     'clean:web',
+                    'compass:build',
                     "copy:js",
                     "copy:vendor",
                     'copy:assets',
-                    'copy:css',
+                    'autoprefixer:build'
                 ]
             }
         }
@@ -76,6 +96,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-browserify');
+    grunt.loadNpmTasks('grunt-autoprefixer');
+    grunt.loadNpmTasks('grunt-contrib-compass');
 
     // register tasks
     grunt.registerTask(
@@ -84,10 +106,11 @@ module.exports = function(grunt) {
             'clean:build',
             'browserify',
             'clean:web',
+            'compass:build',
             'copy:js',
             'copy:vendor',
             'copy:assets',
-            'copy:css',
+            'autoprefixer:build',
             'watch:project'
         ]
     );

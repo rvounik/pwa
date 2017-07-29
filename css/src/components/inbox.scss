@@ -1,0 +1,39 @@
+.list-questionnaires li {
+    list-style-type: none;
+    margin: 0;
+    border-top: dashed 1px #aaa;
+    padding: 0 0 2rem;
+    clear: both;
+}
+.list-questionnaires li:first-child {
+    border-top: none;
+}
+.list-questionnaires li .assessment-date {
+    display: block;
+    padding-bottom: .5rem;
+}
+.list-questionnaires li p {
+    padding: 0;
+    font-size: .75rem;
+    line-height: 1rem;
+}
+.button-start-questionnaire {
+    border: 0;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 1rem;
+    color: #fff;
+    margin: 0;
+    background: var(--ltp-orange);
+}
+.button-start-questionnaire:hover {
+    cursor: pointer;
+}
+.button-start-questionnaire.inactive {
+    -webkit-filter: opacity(20%);
+    filter: opacity(20%);
+}
+.button-start-questionnaire.inactive:hover {
+    cursor: not-allowed;
+}

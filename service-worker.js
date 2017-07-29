@@ -1,7 +1,5 @@
-// note: leave this file in root of project or scope will be limited
+// configure cache
 var doCache = false;
-
-// Name our cache
 var CACHE_NAME = 'rvo-pwa';
 
 // delete old cache
