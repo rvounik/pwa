@@ -33,7 +33,7 @@ self.addEventListener('install', function (event) {
                     const urlsToCache = [
                         "/",
                         "index.html",
-                        "cached.html",
+                        "inbox.html",
                         "questionnaire.html",
                         "web/assets/image/logo-ltp-rgb.svg",
                         "web/css/screen.css",

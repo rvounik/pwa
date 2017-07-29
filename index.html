@@ -32,24 +32,56 @@
 <body>
 
 <header>
-    <img src="web/assets/image/logo-ltp-rgb.svg" alt="LTP"/>
+    <ul class="nav-items">
+        <li class="nav-item nav-item__brand">
+            <a class="nav-item__link" href="/"></a>
+        </li>
+        <li class="nav-item nav-item__inbox active">
+            <a class="nav-item__link" href="inbox.html">
+                <span class="nav-item-link__text">Inbox</span>
+            </a>
+        </li>
+        <li class="nav-item nav-item__organisations ">
+            <a class="nav-item__link" href="#">
+                <span class="nav-item-link__text">Organisaties</span>
+            </a>
+        </li>
+        <li class="nav-item nav-item__tasks ">
+            <a class="nav-item__link" href="#">
+                <span class="nav-item-link__text">Taken</span>
+            </a>
+        </li>
+        <li class="nav-item nav-item__participants ">
+            <a class="nav-item__link" href="#">
+                <span class="nav-item-link__text">Gebruikers</span>
+            </a>
+        </li>
+    </ul>
 </header>
 
 <main>
     <h1>PWA proof-of-concept for LTP Questionnaires</h1>
     <section>
-        <h4>Offline caching</h4>
-        <p>
-            The link below this text leads to a page that was cached by the service worker. Disable your connection (or stop your docker container if working locally) then click. If it works, you are browsing in offline mode, hurray!
-            <br /><br /><a href="cached.html">link to some other page (cached.html)</a>
-            <br /><br />If you dont believe me, click the following link, which was not cached.
-            <br /><br /><a href="notcached.html">link to some other page (notcached.html)</a>
-        </p>
-        <h2>Questionnaire</h2>
-        <p>
-            So, all really interesting. But you are here for the questionnaire, right? Fear not, you can start the questionnaire by following this link:
-            <br /><br /><a href="questionnaire.html"><button role="link" class="button-start-questionnaire">start questionnaire</button></a>
-        </p>
+        <h4>Goals</h4>
+            <ol>
+                <li>implement manifest so app can be installed to 'home screen'</li>
+                <li>use a Service Worker to cache content for offline usage</li>
+                <li>experiment with (mobile) interaction within a questionnaire</li>
+                <li>use Preact to serve a full experience with a very small page load</li>
+            </ol>
+        <h4>Prologue</h4>
+        <ul>
+            <li>Consider this web application to be NeOn's inbox page where questionnaires can be started. Consider only one questionnaire to be available. All other functionality (ie the top menu) is non-functional.</li>
+            <li>When this application is launched 2 times within 5 minutes on a mobile (Android) device, a 'A2HS' banner appears prompting the user to install the web page as an app on their 'home screen'. This effect can be mimicked on a Desktop computer using <a href="https://www.google.com/chrome/browser/canary.html" target="_blank">Chrome's (v62+)</a> web inspector.</li>
+            <li>Note that the app, when launched from the home screen, is currently identical to the web page, but should behave more like an app instead of a web page (ie no browser bar, full screen mode, orientation lock)</li>
+            <li>When the application detects network loss, it will serve pre-cached versions of the pages. You may notice that some functionality becomes inactive (ghosted) when offline. The goal was to be able to complete a questionnaire while being offline.</li>
+        </ul>
+        <div class="alert floating">
+            <p>
+                In fact, to experience all features, you should <b>go offline now</b>: enable flight mode on your mobile device or stop the docker container on your computer. Welcome to the wonderful world of Progressive Web Applications.
+            </p>
+        </div>
+        Alright then. Go to the inbox page using the top navigation.
     </section>
 </main>
 

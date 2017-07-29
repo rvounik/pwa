@@ -31,16 +31,7 @@ module.exports = function(grunt) {
                 }
             },
             assets: {
-                "files": [
-                    {
-                        "src": [
-                            "assets/image/*"
-                        ],
-                        "dest": "web/assets/image",
-                        "flatten": true,
-                        "expand": true
-                    }
-                ]
+                expand: true, cwd: 'assets/image', src: ['*'], dest: 'web/assets/image/'
             },
             css: {
                 files: {
@@ -53,9 +44,10 @@ module.exports = function(grunt) {
                 "js/build"
             ],
             "web": [
-                "web/js",
-                "web/css",
-                "web/assets"
+                "web/js/*.js",
+                "web/js/vendor/*.js",
+                "web/css/*.css",
+                "web/assets/image/*"
             ]
         },
         watch: {
@@ -80,7 +72,7 @@ module.exports = function(grunt) {
     // load the plugins
 
     //grunt.loadNpmTasks('grunt-browserify');
-    grunt.loadNpmTasks('grunt-copy');
+    grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-browserify');
