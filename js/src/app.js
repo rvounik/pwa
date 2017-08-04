@@ -6,6 +6,6 @@ import Questionnaire from './Questionnaire/Questionnaire';
 
 render(
     <Questionnaire />,
-    document.querySelector('#questionnaire')
+    document.querySelector('#app')
 );
 

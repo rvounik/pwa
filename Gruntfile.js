@@ -11,7 +11,7 @@ module.exports = function(grunt) {
                     "keepAlive": false
                 },
                 "files": {
-                    "js/build/questionnaire.js": "js/src/questionnaire.js"
+                    "js/build/app.js": "js/src/app.js"
                 }
             }
         },
@@ -22,7 +22,7 @@ module.exports = function(grunt) {
             js: {
                 files: {
                     'web/js/common.js': ['js/src/common.js'],
-                    'web/js/questionnaire.js': ['js/build/questionnaire.js']
+                    'web/js/app.js': ['js/build/app.js']
                 }
             },
             vendor: {

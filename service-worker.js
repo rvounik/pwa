@@ -36,7 +36,7 @@ self.addEventListener('install', function (event) {
                         "web/assets/image/logo-ltp-rgb.svg",
                         "web/css/screen.css",
                         "web/js/vendor/polyfill.js",
-                        "web/js/questionnaire.js",
+                        "web/js/app.js",
                         "web/js/common.js"
                     ];
                     cache.addAll(urlsToCache);
