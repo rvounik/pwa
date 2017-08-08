@@ -8,9 +8,13 @@ export default class Question extends Component {
     }
 
     render() {
+        let question = this.props.question;
+
         return (
             <section className="question">
-                <h3 className="question__title">{ this.props.question }</h3>
+                <h2 aria-disabled="false" tabIndex="0" aria-label={ question } class="question__title">
+                    { question }
+                </h2>
             </section>
         )
     }

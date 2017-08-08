@@ -40,3 +40,9 @@ p {
     padding: 0;
     margin: 0 0 2rem 0;
 }
+
+// todo: move to app.scss
+#app {
+    overflow: hidden;
+    max-width: 980px;
+}

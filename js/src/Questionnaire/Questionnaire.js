@@ -1,23 +1,23 @@
 import { h, Component } from 'preact';
-import Question from './Question/Question';
-import Answers from './Answers/Answers';
+import $ from 'jquery';
 import ProgressBar from './ProgressBar/ProgressBar';
+import QuestionnaireItem from './QuestionnaireItem';
+import { fitQuestionToWindow } from '../_helpers/FitQuestionToWindow'
 
 /** @jsx h */
 
 export default class Questionnaire extends Component {
     constructor() {
         super();
-        let someStateKey = '456';
-        this.setState({ someStateKey });
 
-        /* normally I would assume this to be defined at the 'inbox page' where the questionnaire was started from */
+        // todo: pass this over from the inbox page instead, since that is the start page of the PWA
         this.state = {
             title: 'Topografie',
             currentQuestion: 1,
             questions: [
                 {
-                    title: 'Wat is de hoofdstad van Amsterdam?',
+                    questionId: '1',
+                    question: 'Wat is de hoofdstad van Amsterdam?',
                     type: 1,
                     answers: [
                         {
@@ -31,7 +31,23 @@ export default class Questionnaire extends Component {
                     ]
                 },
                 {
-                    title: 'Wat is de hoofdstad van Athene?',
+                    questionId: '2',
+                    question: 'Wat is de hoofdstad van Athene?',
+                    type: 1,
+                    answers: [
+                        {
+                            answer: 'some answer',
+                            value: 1
+                        },
+                        {
+                            answer: 'some other answer',
+                            value: 2
+                        }
+                    ]
+                },
+                {
+                    questionId: '3',
+                    question: 'Wat is de hoofdstad van Paramaribo?',
                     type: 1,
                     answers: [
                         {
@@ -44,33 +60,92 @@ export default class Questionnaire extends Component {
                         }
                     ]
                 }
-            ]
-        };
+            ],
+            answers: [],
+            eventlog: []
+        }
+
+    };
+
+    componentDidMount() {
+        // add event listener for window resize
+        window.addEventListener('resize', fitQuestionToWindow);
+
+        // add event listener for answering a question
+        // let answers = document.querySelectorAll('.answers-list__item');
+        //
+        // Object.keys(answers).forEach(function(answer) {
+        //     answers[answer].addEventListener('click', function(event) {
+        //         event.preventDefault();
+        //         console.log(this);
+        //         //answerQuestion();
+        //     });
+        // });
+
+        // resize once
+        fitQuestionToWindow();
+    }
+
+    handleClick(answerId) {
+        console.log('received click '+answerId);
+        console.log(this.state);
+        this.state.answers[this.state.currentQuestion] = answerId;
+    }
+
+    advanceToQuestion(question) {
+        //console.log('user wants to advance to '+question);
+
+        // check if current question was answered
+        // if (this.state.answers[this.state.currentQuestion - 1]) {
+        //     console.log('there seems to be an answer. advance okay.');
+        // } else {
+        //     alert('no answer given yet! (advance anyway to test the feature)');
+        // }
+
+        // animate to next question
+        if(question < this.state.questions.length) {
+            // let currentQuestionElement = document.querySelector('#question' + this.state.currentQuestion);
+            // let nextQuestionElement = document.querySelector('#question' + question);
+
+            let currentQuestionElement = $('#question' + this.state.currentQuestion);
+            let nextQuestionElement = $('#question' + question);
+            let leftOffsetByElement = 0 - (currentQuestionElement.parent().offset().left - currentQuestionElement.offset().left); // get the offset of the current question determined by the position of the content element
+            let leftOffsetById      = 0 - (nextQuestionElement.parent().offset().left - nextQuestionElement.offset().left); // get the offset of the question determined by id
+            if (leftOffsetByElement !== leftOffsetById) {
+                // crap. do we need jquery for just this?
+                $('#app').animate({
+                    scrollLeft: 0 - (nextQuestionElement.parent().offset().left - nextQuestionElement.offset().left)
+                }, 500);
+            }
+        }
     }
 
     render() {
-        let someVar = '123';
-        let question = this.state.questions[this.state.currentQuestion - 1].title;
-        let questionType = this.state.questions[this.state.currentQuestion - 1].type;
-        let answers = this.state.questions[this.state.currentQuestion - 1].answers;
         let totalQuestions = this.state.questions.length;
 
+        let questionnaireItems = [];
+
+        this.state.questions.map((item) => {
+            // todo: add spread operator
+            let questionnaireItem = <QuestionnaireItem
+                    question={ item.question }
+                    answers={ item.answers }
+                    type={ item.type }
+                    handleClick={ this.handleClick }
+                    questionId={ item.questionId }
+            />;
+
+            questionnaireItems.push(questionnaireItem);
+        });
+
         return (
-            <section>
-                <h1>{this.state.title}</h1>
-                <Question question={ question } />
-                <Answers type={ questionType } answers={ answers } />
+            <article className="questionnaire">
+                <ul className="questionnaire__items">
+                    { questionnaireItems }
+                </ul>
+                <nav onClick={ e => this.advanceToQuestion(this.state.currentQuestion+1) }>next</nav>
                 <ProgressBar currentQuestion={ this.state.currentQuestion } totalQuestions={ totalQuestions } />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <button onClick={ e => alert(someVar) }>Click Here</button>
-            </section>
+            </article>
         )
     }
 }

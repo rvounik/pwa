@@ -10,13 +10,11 @@ export default class Answer extends Component {
     }
 
     render() {
-        let answer = this.props.answer;
-        let value = this.props.value;
-        let type = this.props.type;
+        let { answer, value, type, index } = this.props;
 
         switch(type) {
-            case 1: {return (<Radio answer={ answer } value={ value } />)}
-            case 2: {return (<Slider answer={ answer } value={ value } />)}
+            case 1: {return (<Radio answer={ answer } value={ value } index={ index } handleClick={ this.props.handleClick } />)}
+            case 2: {return (<Slider answer={ answer } value={ value } handleClick={ this.props.handleClick }/>)}
             default: alert('invalid answertype specified');
         }
     }

@@ -2,18 +2,6 @@
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', function () {
         navigator.serviceWorker.register('service-worker.js').then(function (registration) {
-            // Registration was successful
-
-            // var newWorker = registration.installing;
-            //
-            // // statechange fires every time the ServiceWorker.state changes
-            // newWorker.onstatechange = function() {
-            //     // show the message on activation
-            //     if (newWorker.state == 'activated' && !navigator.serviceWorker.controller) {
-            //         document.querySelector('body').classList.add('offline');
-            //     }
-            // }
-
             // console.log('ServiceWorker registration successful with scope: ', registration.scope);
             // note: if storage was NOT cleared (or caching=false), service worker install event wont be triggered
         }, function (err) {
@@ -22,13 +10,15 @@ if ('serviceWorker' in navigator) {
         }).catch(function (err) {
             console.log(err);
         });
-
-        //console.log('checking navigator status',navigator);
-        if (!navigator.onLine) {
-            document.querySelector('body').classList.add('offline');
-        }
     });
+
+    window.addEventListener('online', function(e) {
+        document.querySelector('body').classList.remove('offline');
+    }, false);
+
+    window.addEventListener('offline', function(e) {
+        document.querySelector('body').classList.add('offline');
+    }, false);
 } else {
-    // todo: ensure this only fires when app is really offline
     alert('serviceWorker not supported on this device, cant work offline');
 }

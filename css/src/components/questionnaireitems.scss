@@ -1,0 +1,78 @@
+.questionnaire {
+    display: table;
+    width: 100%;
+    .questionnaire__items {
+        // ul
+        white-space: nowrap; /* no wrapping of question containers */
+        overflow: visible;
+        display: table-row; /* this seems to be the only way to 'float' question containers outside browser boundaries */
+        list-style: none;
+        .questionnaire-items__item {
+            // li
+            display: table-cell; /* this seems to be the only way to 'float' question containers outside browser boundaries */
+            white-space: normal; /* allow normal wrapping again */
+            padding: 0;
+            width: 100%;
+            min-width: 100%;
+            border: solid 1px red; // todo: remove
+            .question {
+                // section (extract to css component)
+                .question__title {
+                    // h2
+                    color: $ltp-orange;
+                }
+            }
+            .answers {
+                // section (extract to css component)
+                .answers__list {
+                    // ul
+                    white-space: nowrap; /* no wrapping of question containers */
+                    overflow: visible;
+                    display: table; /* this seems to be the only way to 'float' question containers outside browser boundaries */
+                    box-sizing: padding-box;
+                    list-style: none;
+                    .answers-list__item {
+                        // li
+                        label {
+                            display: inline-block;
+                            text-indent: 40px;
+                            width: 100%;
+                            font-size: 1.5rem;
+                            line-height: 1.25rem;
+                            // @include user-select(none);
+                        }
+                    }
+                    &.radio {
+                        // specifics for ul surrounding radio li's
+                        li {position: relative} // too broad?
+                        input[type=radio] {opacity: 0} // opacity still responds to events and is more accessible than display: none or visibility: hidden
+                        input[type=radio]:checked + label {font-weight: bold}
+                        input[type=radio]:checked +label:before {
+                            background: #fff;
+                            border-color: #fff;
+                        }
+                        li > label {padding: 0;}
+                        li > label {margin-left: 5px;  cursor: pointer;}
+                        li > label:before {
+                            content: "";
+                            cursor: pointer;
+                            border: 2px solid #eee;
+                            width: 25px;
+                            height: 25px;
+                            box-sizing: border-box;
+                            position: absolute;
+                            left: 50px;
+                            margin-left: -40px;
+                            margin-top: -3px;
+                            // @include border-radius(50%);
+                        }
+                    }
+                    &.slider {
+                        // specifics for ul surrounding slider li's
+                    }
+                }
+            }
+        }
+    }
+}
+

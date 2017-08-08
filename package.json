@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "babel-polyfill": "^6.7.2",
+    "jquery": "^3.2.1",
     "preact": "^8.2.1"
   },
   "devDependencies": {
