@@ -1,0 +1,64 @@
+main > footer {
+    background: $ltp-white;
+    color: $ltp-black;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 5rem;
+    line-height: 5rem;
+    vertical-align: middle;
+    nav {
+        float: left;
+        padding-left: 1rem;
+        button {
+            font-size: 1rem;
+            border-radius: 10px;
+            border: solid 5px $ltp-blue;
+            background: $ltp-blue;
+            color: $ltp-white;
+            width: 2.5rem;
+            height: 2.5rem;
+            margin: 0 .2rem;
+            &.prev:before {
+                content: "\276E";
+            }
+            &.next:before {
+                content: "\276F";
+            }
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+    .progressbar {
+        width: 40%;
+        float: right;
+        padding: 1.2rem 1.5rem;
+        .progressbar__outer {
+            width: 100%;
+            height: 2rem;
+            background: $ltp-blue;
+            position: relative;
+            border-radius: 10px;
+            border: solid 5px $ltp-blue;
+        }
+        .progressbar__inner {
+            width: 0;
+            height: 100%;
+            background: $ltp-white;
+            position: absolute;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+            &.full {
+                border-radius: 10px;
+            }
+        }
+        .progressbar__number {
+            text-align: center;
+            color: $ltp-black;
+            line-height: 2.25rem;
+            position: sticky;
+        }
+    }
+}

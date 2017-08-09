@@ -1,6 +1,13 @@
+#questionnaire-wrapper {
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+}
 .questionnaire {
     display: table;
-    width: 100%;
+    white-space: nowrap;
+    overflow: visible;
+    padding: 3rem;
     .questionnaire__items {
         // ul
         white-space: nowrap; /* no wrapping of question containers */
@@ -14,11 +21,12 @@
             padding: 0;
             width: 100%;
             min-width: 100%;
-            border: solid 1px red; // todo: remove
             .question {
                 // section (extract to css component)
                 .question__title {
                     // h2
+                    font-size: 2rem;
+                    line-height: 2.5rem;
                     color: $ltp-orange;
                 }
             }
@@ -33,6 +41,7 @@
                     list-style: none;
                     .answers-list__item {
                         // li
+                        padding: .5rem 0;
                         label {
                             display: inline-block;
                             text-indent: 40px;

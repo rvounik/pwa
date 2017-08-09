@@ -12,7 +12,7 @@ export default class Questionnaire extends Component {
 
         // todo: pass this over from the inbox page instead, since that is the start page of the PWA
         this.state = {
-            title: 'Topografie',
+            shouldUserGiveAnswer: true,
             currentQuestion: 1,
             questions: [
                 {
@@ -63,66 +63,75 @@ export default class Questionnaire extends Component {
             ],
             answers: [],
             eventlog: []
-        }
+        };
 
+        // bind local scope to giveAnswer function so state can be manipulated from child component
+        this.giveAnswer = this.giveAnswer.bind(this);
     };
 
     componentDidMount() {
         // add event listener for window resize
         window.addEventListener('resize', fitQuestionToWindow);
 
-        // add event listener for answering a question
-        // let answers = document.querySelectorAll('.answers-list__item');
-        //
-        // Object.keys(answers).forEach(function(answer) {
-        //     answers[answer].addEventListener('click', function(event) {
-        //         event.preventDefault();
-        //         console.log(this);
-        //         //answerQuestion();
-        //     });
-        // });
-
         // resize once
         fitQuestionToWindow();
     }
 
-    handleClick(answerId) {
-        console.log('received click '+answerId);
-        console.log(this.state);
+    giveAnswer(answerId) {
         this.state.answers[this.state.currentQuestion] = answerId;
     }
 
-    advanceToQuestion(question) {
-        //console.log('user wants to advance to '+question);
+    allowedToAdvance(requestedQuestion) {
+        if(requestedQuestion > 0 && requestedQuestion < this.state.currentQuestion) {
+            // always allow to go back
+            return true;
+        }
+        if(requestedQuestion > 0 && requestedQuestion < (this.state.questions.length + 1)) {
+            if (!this.state.shouldUserGiveAnswer) {
+                // answer not compulsory
+                return true;
+            } else {
+                if (this.state.answers[this.state.currentQuestion]) {
+                    // answer given
+                    let questionAlertId = '#question' + this.state.currentQuestion + '-alert';
+                    document.querySelector(questionAlertId).classList.remove('active'); // if it was there
+                    return true;
+                } else {
+                    // no answer given
+                    let questionAlertId = '#question' + this.state.currentQuestion + '-alert';
+                    document.querySelector(questionAlertId).classList.add('active');
+                    return false;
+                }
+            }
+        } else {
+            // question out of scope
+            return false;
+        }
+    }
 
-        // check if current question was answered
-        // if (this.state.answers[this.state.currentQuestion - 1]) {
-        //     console.log('there seems to be an answer. advance okay.');
-        // } else {
-        //     alert('no answer given yet! (advance anyway to test the feature)');
-        // }
+    advanceToQuestion(requestedQuestion) {
+        if(this.allowedToAdvance(requestedQuestion)){
+            // animate to next question (based on randstad)
+            if(requestedQuestion < (this.state.questions.length +1)) {
+                let currentQuestionElement = $('#question' + this.state.currentQuestion);
+                let nextQuestionElement = $('#question' + requestedQuestion);
+                let leftOffsetByElement = 0 - (currentQuestionElement.parent().offset().left - currentQuestionElement.offset().left); // get the offset of the current question determined by the position of the content element
+                let leftOffsetById      = 0 - (nextQuestionElement.parent().offset().left - nextQuestionElement.offset().left); // get the offset of the question determined by id
 
-        // animate to next question
-        if(question < this.state.questions.length) {
-            // let currentQuestionElement = document.querySelector('#question' + this.state.currentQuestion);
-            // let nextQuestionElement = document.querySelector('#question' + question);
+                if (leftOffsetByElement !== leftOffsetById) {
+                    // todo: do we really need jquery for just this?!
+                    $('#questionnaire-wrapper').animate({
+                        scrollLeft: 0 - (nextQuestionElement.parent().offset().left - nextQuestionElement.offset().left)
+                    }, 500);
 
-            let currentQuestionElement = $('#question' + this.state.currentQuestion);
-            let nextQuestionElement = $('#question' + question);
-            let leftOffsetByElement = 0 - (currentQuestionElement.parent().offset().left - currentQuestionElement.offset().left); // get the offset of the current question determined by the position of the content element
-            let leftOffsetById      = 0 - (nextQuestionElement.parent().offset().left - nextQuestionElement.offset().left); // get the offset of the question determined by id
-            if (leftOffsetByElement !== leftOffsetById) {
-                // crap. do we need jquery for just this?
-                $('#app').animate({
-                    scrollLeft: 0 - (nextQuestionElement.parent().offset().left - nextQuestionElement.offset().left)
-                }, 500);
+                    this.state.currentQuestion = requestedQuestion;
+                }
             }
         }
     }
 
     render() {
         let totalQuestions = this.state.questions.length;
-
         let questionnaireItems = [];
 
         this.state.questions.map((item) => {
@@ -131,7 +140,7 @@ export default class Questionnaire extends Component {
                     question={ item.question }
                     answers={ item.answers }
                     type={ item.type }
-                    handleClick={ this.handleClick }
+                    handleClick={ this.giveAnswer }
                     questionId={ item.questionId }
             />;
 
@@ -139,13 +148,56 @@ export default class Questionnaire extends Component {
         });
 
         return (
-            <article className="questionnaire">
-                <ul className="questionnaire__items">
-                    { questionnaireItems }
-                </ul>
-                <nav onClick={ e => this.advanceToQuestion(this.state.currentQuestion+1) }>next</nav>
-                <ProgressBar currentQuestion={ this.state.currentQuestion } totalQuestions={ totalQuestions } />
-            </article>
+            <main>
+                <header>
+                    <ul className="nav-items">
+                        <li className="nav-item nav-item__brand">
+                            <a className="nav-item__link" href="/"></a>
+                        </li>
+                        <li className="nav-item nav-item__inbox active">
+                            <a className="nav-item__link" href="inbox.html">
+                                <span className="nav-item-link__text">Inbox</span>
+                            </a>
+                        </li>
+                        <li className="nav-item nav-item__organisations ">
+                            <a className="nav-item__link" href="#">
+                                <span className="nav-item-link__text">Organisaties</span>
+                            </a>
+                        </li>
+                        <li className="nav-item nav-item__tasks ">
+                            <a className="nav-item__link" href="#">
+                                <span className="nav-item-link__text">Taken</span>
+                            </a>
+                        </li>
+                        <li className="nav-item nav-item__participants ">
+                            <a className="nav-item__link" href="#">
+                                <span className="nav-item-link__text">Gebruikers</span>
+                            </a>
+                        </li>
+                    </ul>
+                </header>
+
+                <div id="questionnaire-wrapper">
+                    <article className="questionnaire">
+                        <ul className="questionnaire__items">
+                            { questionnaireItems }
+                        </ul>
+                    </article>
+                </div>
+
+                <div className="alert alert-offline">
+                    <p>
+                        It seems you are currently not connected to a network. While this application has been configured to work offline, this is an experimental feature that you should use at your own risk. In any case it is recommended to leave this page open until your connection is restored.
+                    </p>
+                </div>
+                <footer>
+                    <nav>
+                        <button onClick={ e => this.advanceToQuestion(this.state.currentQuestion - 1) } className="prev"></button>
+                        <button onClick={ e => this.advanceToQuestion(this.state.currentQuestion + 1) } className="next"></button>
+                    </nav>
+                    <ProgressBar currentQuestion={ this.state.currentQuestion } totalQuestions={ totalQuestions } />
+                </footer>
+            </main>
         )
     }
 }

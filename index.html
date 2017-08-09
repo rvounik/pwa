@@ -28,58 +28,60 @@
 </head>
 <body>
 
-<header>
-    <ul class="nav-items">
-        <li class="nav-item nav-item__brand">
-            <a class="nav-item__link" href="/"></a>
-        </li>
-        <li class="nav-item nav-item__inbox active">
-            <a class="nav-item__link" href="inbox.html">
-                <span class="nav-item-link__text">Inbox</span>
-            </a>
-        </li>
-        <li class="nav-item nav-item__organisations ">
-            <a class="nav-item__link" href="#">
-                <span class="nav-item-link__text">Organisaties</span>
-            </a>
-        </li>
-        <li class="nav-item nav-item__tasks ">
-            <a class="nav-item__link" href="#">
-                <span class="nav-item-link__text">Taken</span>
-            </a>
-        </li>
-        <li class="nav-item nav-item__participants ">
-            <a class="nav-item__link" href="#">
-                <span class="nav-item-link__text">Gebruikers</span>
-            </a>
-        </li>
-    </ul>
-</header>
-
 <main>
-    <h1>PWA proof-of-concept for LTP Questionnaires</h1>
-    <section>
-        <h4>Goals</h4>
-            <ol>
-                <li>implement manifest so app can be installed to 'home screen'</li>
-                <li>use a Service Worker to cache content for offline usage</li>
-                <li>experiment with (mobile) interaction within a questionnaire</li>
-                <li>use Preact to serve a full experience with a very small page load</li>
-            </ol>
-        <h4>Prologue</h4>
-        <ul>
-            <li>Consider this web application to be NeOn's inbox page where questionnaires can be started. Consider only one questionnaire to be available. All other functionality (ie the top menu) is non-functional.</li>
-            <li>When this application is launched 2 times within 5 minutes on a mobile (Android) device, a 'A2HS' banner appears prompting the user to install the web page as an app on their 'home screen'. This effect can be mimicked on a Desktop computer using <a href="https://www.google.com/chrome/browser/canary.html" target="_blank" rel="noopener">Chrome's (v62+)</a> web inspector.</li>
-            <li>Note that the app, when launched from the home screen, is currently identical to the web page, but should behave more like an app instead of a web page (ie no browser bar, full screen mode, orientation lock)</li>
-            <li>When the application detects network loss, it will serve pre-cached versions of the pages. You may notice that some functionality becomes inactive (ghosted) when offline. The goal was to be able to complete a questionnaire while being offline.</li>
+    <header>
+        <ul class="nav-items">
+            <li class="nav-item nav-item__brand">
+                <a class="nav-item__link" href="/"></a>
+            </li>
+            <li class="nav-item nav-item__inbox active">
+                <a class="nav-item__link" href="inbox.html">
+                    <span class="nav-item-link__text">Inbox</span>
+                </a>
+            </li>
+            <li class="nav-item nav-item__organisations ">
+                <a class="nav-item__link" href="#">
+                    <span class="nav-item-link__text">Organisaties</span>
+                </a>
+            </li>
+            <li class="nav-item nav-item__tasks ">
+                <a class="nav-item__link" href="#">
+                    <span class="nav-item-link__text">Taken</span>
+                </a>
+            </li>
+            <li class="nav-item nav-item__participants ">
+                <a class="nav-item__link" href="#">
+                    <span class="nav-item-link__text">Gebruikers</span>
+                </a>
+            </li>
         </ul>
-        <div class="alert floating">
-            <p>
-                In fact, to experience all features, you should <b>go offline now</b>: enable flight mode on your mobile device or stop the docker container on your computer.
-            </p>
-        </div>
-        Then go to the inbox page using the top navigation. You'll see an overview of your assessments. That would be the start page of the PWA (all data is already loaded there).
-    </section>
+    </header>
+
+    <div class="introduction-wrapper">
+        <h1>PWA proof-of-concept for LTP Questionnaires</h1>
+        <section>
+            <h4>Goals</h4>
+                <ol>
+                    <li>implement manifest so app can be installed to 'home screen'</li>
+                    <li>use a Service Worker to cache content for offline usage</li>
+                    <li>experiment with (mobile) interaction within a questionnaire</li>
+                    <li>use Preact to serve a full experience with a very small page load</li>
+                </ol>
+            <h4>Prologue</h4>
+            <ul>
+                <li>Consider this web application to be NeOn's inbox page where questionnaires can be started. Consider only one questionnaire to be available. All other functionality (ie the top menu) is non-functional.</li>
+                <li>When this application is launched 2 times within 5 minutes on a mobile (Android) device, a 'A2HS' banner appears prompting the user to install the web page as an app on their 'home screen'. This effect can be mimicked on a Desktop computer using <a href="https://www.google.com/chrome/browser/canary.html" target="_blank" rel="noopener">Chrome's (v62+)</a> web inspector.</li>
+                <li>Note that the app, when launched from the home screen, is currently identical to the web page, but should behave more like an app instead of a web page (ie no browser bar, full screen mode, orientation lock)</li>
+                <li>When the application detects network loss, it will serve pre-cached versions of the pages. You may notice that some functionality becomes inactive (ghosted) when offline. The goal was to be able to complete a questionnaire while being offline.</li>
+            </ul>
+            <div class="alert floating">
+                <p>
+                    In fact, to experience all features, you should <b>go offline now</b>: enable flight mode on your mobile device or stop the docker container on your computer.
+                </p>
+            </div>
+            Then go to the inbox page using the top navigation. You'll see an overview of your assessments. That would be the start page of the PWA (all data is already loaded there).
+        </section>
+    </div>
 </main>
 
 <script src="web/js/common.js"></script>

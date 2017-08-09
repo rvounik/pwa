@@ -9,10 +9,9 @@ export default class Answers extends Component {
     }
 
     render() {
-        let answers = this.props.answers;
-        let type = this.props.type;
+        let { answers, type, handleClick, questionId } = this.props;
+
         let answerComponents = [];
-        let handleClick = this.props.handleClick;
 
         Object.keys(answers).forEach(function(key) {
             let answer = answers[key].answer;
@@ -24,6 +23,7 @@ export default class Answers extends Component {
                         value={ value }
                         index={ key }
                         handleClick={ handleClick }
+                        questionId={ questionId }
                 />
             );
         });

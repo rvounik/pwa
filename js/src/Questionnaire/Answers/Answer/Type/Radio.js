@@ -8,12 +8,13 @@ export default class Radio extends Component {
     }
 
     render() {
-        let { answer, value, index, handleClick } = this.props;
+        let { answer, value, index, handleClick, questionId } = this.props;
+        let labelId = questionId+'-'+value; // todo: this needs some.. sophistication
 
         return (
             <li tabIndex={ index } className="answers-list__item radio" onClick={() => handleClick(value)}>
-                <input type="radio" name="sex" id={ value } value={ value } aria-checked="false" aria-required="true" autocomplete="off" />
-                <label for={ value }>{ answer }</label>
+                <input type="radio" name={ questionId } id={ labelId } value={ value } aria-checked="false" aria-required="true" autocomplete="off" />
+                <label for={ labelId }>{ answer }</label>
             </li>
         )
     }

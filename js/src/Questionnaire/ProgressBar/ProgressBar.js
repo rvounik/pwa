@@ -10,8 +10,8 @@ export default class ProgressBar extends Component {
     componentDidMount() {
         let currentQuestion = this.props.currentQuestion;
         let totalQuestions = this.props.totalQuestions;
-        let progress = parseInt(currentQuestion)/parseInt(totalQuestions);
-        document.querySelector('.progressbar__inner').style.width = 100 * progress + '%';
+        let progress = parseInt(currentQuestion) / parseInt(totalQuestions);
+        document.querySelector('.progressbar__inner').style.width = 100 * progress + '%'; // todo: this is wrong
 
         if (progress === 1) {
             document.querySelector('.progressbar__inner').classList.add('full');
@@ -26,9 +26,9 @@ export default class ProgressBar extends Component {
             <section className="progressbar">
                 <div className="progressbar__outer">
                     <div className="progressbar__inner"></div>
-                </div>
-                <div className="progressbar__number">
-                    { currentQuestion } / { totalQuestions }
+                    <div className="progressbar__number">
+                        { currentQuestion } / { totalQuestions }
+                    </div>
                 </div>
             </section>
         )

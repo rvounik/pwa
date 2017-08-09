@@ -31,3 +31,9 @@
         margin: 0 1rem 0;
     }
 }
+
+.offline .nav-items {
+    .nav-item-link__text {
+        color: $ltp-ghosted-text;
+    }
+}

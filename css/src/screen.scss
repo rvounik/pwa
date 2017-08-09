@@ -3,7 +3,7 @@
 @import 'components/navigation.scss';
 @import 'components/inbox.scss';
 @import 'components/questionnaireitems.scss';
-@import 'components/progressbar.scss';
 @import 'components/alert.scss';
+@import 'components/footer.scss';
 
-/* todo: can css modules help here? */
+// todo: can css modules facilitate conditional loading (ie per component)?
