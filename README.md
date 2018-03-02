@@ -9,3 +9,5 @@ Proof of concept for Psybizz/LTP PWA for questionnaires
 - run the container: docker run -d -p 80:80 -p 443:443 --name pwa-container pwa
 - visit https://www.rvo-pwa.nl in your browser
 - you can use something like browser-sync to be able to access your local project on a mobile device
+
+rvo, 2017
